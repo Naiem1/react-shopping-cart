@@ -1,6 +1,7 @@
 import Header from './components/header/Header';
 import Hero from './components/hero-section/Hero';
 import ProductSection from './components/product-section/ProductSection';
+import Sidebar from './components/sidebar/Sidebar';
 
 const App = () => {
   return (
@@ -8,6 +9,7 @@ const App = () => {
       <Header />
       <Hero />
       <ProductSection />
+    <Sidebar/>
     </div>
   );
 };
