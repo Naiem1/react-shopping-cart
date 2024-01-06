@@ -4,12 +4,14 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import { FaShoppingBag } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import img from '../../assets/images/sushi.jpg';
-import { useToggle } from '../../state/reducers/toggleReducer';
+import { useToggle } from '../../hooks/useToggle';
 
 function Sidebar() {
   const { state, dispatch } = useToggle();
 
-  const handleClose = () => dispatch({ type: 'close' });
+  const handleClose = () => {
+    dispatch({ type: 'close' });
+  };
 
   return (
     <>

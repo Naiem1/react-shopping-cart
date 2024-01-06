@@ -5,7 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { FaShoppingBag } from 'react-icons/fa';
 import Logo from '../../assets/images/logo.png';
-import { useToggle } from '../../state/reducers/toggleReducer';
+import { useToggle } from '../../hooks/useToggle';
 
 const navLink = [
   { id: 1, name: 'Menu', link: '#/menu' },
@@ -16,13 +16,12 @@ const navLink = [
 ];
 
 function Header() {
-  const { state, dispatch } = useToggle();
+  const { dispatch } = useToggle();
 
   const handleSidebarOpen = () => {
     dispatch({ type: 'open' });
   };
 
-  console.log('state', state);
   return (
     <>
       <Navbar
