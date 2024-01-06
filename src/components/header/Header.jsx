@@ -5,16 +5,24 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { FaShoppingBag } from 'react-icons/fa';
 import Logo from '../../assets/images/logo.png';
+import { useToggle } from '../../state/reducers/toggleReducer';
 
 const navLink = [
   { id: 1, name: 'Menu', link: '#/menu' },
   { id: 2, name: 'Rewards', link: '#/rewards' },
   { id: 3, name: 'Locations', link: '#/locations' },
-  { id: 1, name: 'Gift Card', link: '#/gift-cards' },
-  { id: 1, name: 'Login', link: '#/login' },
+  { id: 4, name: 'Gift Card', link: '#/gift-cards' },
+  { id: 5, name: 'Login', link: '#/login' },
 ];
 
 function Header() {
+  const { state, dispatch } = useToggle();
+
+  const handleSidebarOpen = () => {
+    dispatch({ type: 'open' });
+  };
+
+  console.log('state', state);
   return (
     <>
       <Navbar
@@ -34,7 +42,7 @@ function Header() {
             ))}
           </Nav>
           <Nav>
-            <Nav.Link>
+            <Nav.Link onClick={handleSidebarOpen}>
               <div className="position-relative">
                 <FaShoppingBag
                   className="text-dark"

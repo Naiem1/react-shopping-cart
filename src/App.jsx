@@ -2,14 +2,17 @@ import Header from './components/header/Header';
 import Hero from './components/hero-section/Hero';
 import ProductSection from './components/product-section/ProductSection';
 import Sidebar from './components/sidebar/Sidebar';
+import { ToggleProvider } from './state/reducers/toggleReducer';
 
 const App = () => {
   return (
     <div>
-      <Header />
+      <ToggleProvider>
+        <Header />
+        <Sidebar />
+      </ToggleProvider>
       <Hero />
       <ProductSection />
-    <Sidebar/>
     </div>
   );
 };
