@@ -1,29 +1,24 @@
-import { useState } from 'react';
 import { Badge, Form, InputGroup } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { FaShoppingBag } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import img from '../../assets/images/sushi.jpg';
+import { useToggle } from '../../state/reducers/toggleReducer';
 
 function Sidebar() {
-  const [show, setShow] = useState(false);
+  const { state, dispatch } = useToggle();
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => dispatch({ type: 'close' });
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Launch
-      </Button>
-
-      <Offcanvas show={show} onHide={handleClose} placement="end">
+      <Offcanvas show={state.isOpen} onHide={handleClose} placement="end">
         <Offcanvas.Header className="bg-light p-2 justify-content-start">
           <FaShoppingBag />
           <Offcanvas.Title className=" ml-5">1 Item</Offcanvas.Title>
           <div className="flex-grow-1" />
-          <Button size="sm" variant="outline-danger">
+          <Button size="sm" variant="outline-danger" onClick={handleClose}>
             Close
           </Button>
         </Offcanvas.Header>
