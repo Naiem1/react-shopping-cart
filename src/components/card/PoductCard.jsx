@@ -2,7 +2,8 @@ import { Button } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 
-function ProductCard({ product: { img, title, price, text } }) {
+function ProductCard({ product, handleAddToCart }) {
+  const { img, title, price, text } = product;
   return (
     <>
       <Col>
@@ -13,7 +14,11 @@ function ProductCard({ product: { img, title, price, text } }) {
             <p>${price}/each</p>
             <Card.Text>{text}</Card.Text>
             <div className="d-grid gap-2">
-              <Button variant="primary" size="sm">
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={() => handleAddToCart(product)}
+              >
                 Add to Order
               </Button>
               <Button variant="outline-primary" size="sm">

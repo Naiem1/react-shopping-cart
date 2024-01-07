@@ -1,17 +1,44 @@
-import { Badge, Form, InputGroup } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { FaShoppingBag } from 'react-icons/fa';
-import { MdDelete } from 'react-icons/md';
-import img from '../../assets/images/sushi.jpg';
+import { useShoppingCart } from '../../hooks/useShoppingCart ';
 import { useToggle } from '../../hooks/useToggle';
+import CartItem from '../cartItem/CartItem';
+import { getTotalPrice } from '../../utils/calculateTotalPrice';
 
 function Sidebar() {
+  const { cart, incrementQuantity, decrementQuantity, removeFromCart } =
+    useShoppingCart();
   const { state, dispatch } = useToggle();
 
   const handleClose = () => {
     dispatch({ type: 'close' });
   };
+
+
+
+  const handleIncrementItem = (itemId) => {
+    incrementQuantity(itemId);
+  };
+  const handleDecrementItem = (itemId) => {
+    const cartItem = cart.find((item) => item.id === itemId);
+
+    if (cartItem.quantity === 1) {
+      removeFromCart(itemId);
+      return;
+    }
+
+    decrementQuantity(itemId);
+  };
+
+  const handleRemoveFromCart = (itemId) => {
+    removeFromCart(itemId);
+  };
+
+
+  const totalPrice = getTotalPrice(cart);
+
+  console.log(cart);
 
   return (
     <>
@@ -26,50 +53,22 @@ function Sidebar() {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <div>
-            <div className="border border-danger d-flex mb-1 position-relative">
-              <div style={{ width: '110px' }} className=" p-1">
-                <img
-                  className="w-100 h-100 object-fit-cover rounded"
-                  src={img}
-                  alt=""
-                />
-              </div>
-              <div
-                style={{
-                  fontSize: '25px',
-                  cursor: 'pointer',
-                  position: 'absolute',
-                  top: -15,
-                  right: -10,
-                }}
-              >
-                <Badge bg="danger">
-                  <MdDelete />
-                </Badge>
-              </div>
-              <div className="p-2">
-                <p className="font-weight-bold m-0">Chicken Masala</p>
-                <p className="mb-2">$123/each</p>
-
-                <InputGroup className="mb-3">
-                  <Button size="sm" variant="primary">
-                    -
-                  </Button>
-                  <Form.Control
-                    style={{ width: '0', textAlign: 'center' }}
-                    placeholder="10"
-                    aria-label="Username"
-                    aria-describedby="basic-addon1"
-                  />
-                  <Button size="sm" variant="primary">
-                    +
-                  </Button>
-                </InputGroup>
-                <div className="text-end"> $120</div>
-              </div>
-            </div>
+            {cart?.map((item) => (
+              <CartItem
+                key={item.id}
+                item={item}
+                totalPrice={totalPrice}
+                handleIncrementItem={handleIncrementItem}
+                handleDecrementItem={handleDecrementItem}
+                handleRemoveFromCart={handleRemoveFromCart}
+              />
+            ))}
           </div>
         </Offcanvas.Body>
+        <Offcanvas.Header className='bg-light  py-2 text-danger'>
+          <p className='m-0'>Place Order </p>
+          <p className='m-0'>${totalPrice}</p>
+        </Offcanvas.Header>
       </Offcanvas>
     </>
   );

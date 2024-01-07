@@ -5,7 +5,9 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { FaShoppingBag } from 'react-icons/fa';
 import Logo from '../../assets/images/logo.png';
+import { useShoppingCart } from '../../hooks/useShoppingCart ';
 import { useToggle } from '../../hooks/useToggle';
+import { getTotalCartItems } from '../../utils/calculationTotalCartItems';
 
 const navLink = [
   { id: 1, name: 'Menu', link: '#/menu' },
@@ -21,6 +23,9 @@ function Header() {
   const handleSidebarOpen = () => {
     dispatch({ type: 'open' });
   };
+
+  const { cart } = useShoppingCart();
+  const totalCartItem = getTotalCartItems(cart);
 
   return (
     <>
@@ -47,12 +52,14 @@ function Header() {
                   className="text-dark"
                   style={{ fontSize: '40px' }}
                 />
-                <Badge
-                  bg="primary"
-                  className="position-absolute bottom-50 start-50"
-                >
-                  9
-                </Badge>
+                {totalCartItem ? (
+                  <Badge
+                    bg="primary"
+                    className="position-absolute bottom-50 start-50"
+                  >
+                    {totalCartItem}
+                  </Badge>
+                ) : null}
               </div>
             </Nav.Link>
             <Nav.Link>

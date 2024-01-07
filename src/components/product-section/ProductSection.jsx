@@ -5,6 +5,7 @@ import img5 from '../../assets/images/food5.jpg';
 import img6 from '../../assets/images/food6.jpg';
 import img2 from '../../assets/images/pizza.jpg';
 import img3 from '../../assets/images/sushi.jpg';
+import { useShoppingCart } from '../../hooks/useShoppingCart ';
 import ProductCard from '../card/PoductCard';
 
 const cardDetails = [
@@ -53,12 +54,22 @@ const cardDetails = [
 ];
 
 const ProductSection = () => {
+  const { addToCart } = useShoppingCart();
+  const handleAddToCart = (item) => {
+    addToCart(item);
+  };
+  
+
   return (
     <div className="container  my-5">
       <h4 className=" text-uppercase my-3">Menu</h4>
       <Row xs={1} md={2} lg={3} className="g-4">
         {cardDetails.map((product, idx) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard
+            key={product.id}
+            product={product}
+            handleAddToCart={handleAddToCart}
+          />
         ))}
       </Row>
     </div>
