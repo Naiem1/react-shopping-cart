@@ -24,8 +24,8 @@ function Header() {
     dispatch({ type: 'open' });
   };
 
-  const { cart } = useShoppingCart();
-  const totalCartItem = getTotalCartItems(cart);
+  const { state: {cartItems} } = useShoppingCart();
+  const totalCartItem = getTotalCartItems(cartItems);
 
   return (
     <>

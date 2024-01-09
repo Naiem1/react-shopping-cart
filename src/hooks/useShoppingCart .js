@@ -17,13 +17,7 @@ const useCart = () => {
 };
 
 const useShoppingCart = () => {
-  // const { cart, dispatch } = useCart();
-  const context = useContext(CartContext);
-  if (!context) {
-    throw new Error('useToggle must be used within a ToggleProvider');
-  }
-
-  const { cart, dispatch } = context;
+  const { state, dispatch } = useCart();
 
   const addToCart = (item) => {
     dispatch({ type: ADD_TO_CART, payload: item });
@@ -38,10 +32,8 @@ const useShoppingCart = () => {
     dispatch({ type: DECREASE_QUANTITY, payload: itemId });
   };
 
-  const updateQuantity = () => {};
-
   return {
-    cart,
+    state,
     addToCart,
     removeFromCart,
     incrementQuantity,
