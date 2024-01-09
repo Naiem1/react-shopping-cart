@@ -12,9 +12,9 @@ const App = () => {
         <ToggleProvider>
           <Header />
           <Sidebar />
+          <Hero />
+          <ProductSection />
         </ToggleProvider>
-        <Hero />
-        <ProductSection />
       </CartProvider>
     </div>
   );

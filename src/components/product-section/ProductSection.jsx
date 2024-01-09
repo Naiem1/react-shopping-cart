@@ -7,6 +7,8 @@ import img2 from '../../assets/images/pizza.jpg';
 import img3 from '../../assets/images/sushi.jpg';
 import { useShoppingCart } from '../../hooks/useShoppingCart ';
 import ProductCard from '../card/PoductCard';
+import { useEffect, useState } from 'react';
+import { useToggle } from '../../hooks/useToggle';
 
 const cardDetails = [
   {
@@ -54,12 +56,14 @@ const cardDetails = [
 ];
 
 const ProductSection = () => {
-  const { addToCart } = useShoppingCart();
+  const { state: {selectedProducts }, addToCart } = useShoppingCart();
+  const { dispatch} = useToggle()
   const handleAddToCart = (item) => {
     addToCart(item);
+    
+    dispatch({type: 'open'})
   };
   
-
   return (
     <div className="container  my-5">
       <h4 className=" text-uppercase my-3">Menu</h4>
@@ -69,6 +73,7 @@ const ProductSection = () => {
             key={product.id}
             product={product}
             handleAddToCart={handleAddToCart}
+            selectedProducts={selectedProducts}
           />
         ))}
       </Row>
